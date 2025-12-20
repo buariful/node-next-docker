@@ -3,6 +3,8 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
+const baseApiUrl = "http://localhost:5000";
+
 export default function Home() {
   const [users, setUsers] = useState([]);
   const [name, setName] = useState("");
@@ -11,8 +13,9 @@ export default function Home() {
 
   const fetchUsers = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/users");
-      setUsers(res.data);
+      const res = await axios.get(`${baseApiUrl}/user`);
+
+      setUsers(res?.data?.data);
     } catch (error) {
       console.error("Error fetching users:", error);
     }
@@ -28,7 +31,7 @@ export default function Home() {
 
     setLoading(true);
     try {
-      await axios.post("http://localhost:5000/users", { name, email });
+      await axios.post(`${baseApiUrl}/user`, { name, email });
       setName("");
       setEmail("");
       fetchUsers();
