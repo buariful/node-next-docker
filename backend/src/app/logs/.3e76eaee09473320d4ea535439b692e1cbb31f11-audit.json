@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "/media/ariful/E861DCECCE8FC378/PH-1-22/cloud practice/docker/Full stack Docker app/backend/src/app/logs/.3e76eaee09473320d4ea535439b692e1cbb31f11-audit.json",
+    "files": [
+        {
+            "date": 1766267654318,
+            "name": "/media/ariful/E861DCECCE8FC378/PH-1-22/cloud practice/docker/Full stack Docker app/backend/src/app/logs/error-2025-12-21-03.log",
+            "hash": "7924cdd14cb6c8bd2b9259e61727f415b5ef68b8f0542bf8b8bd8937a81e94a5"
+        }
+    ],
+    "hashType": "sha256"
+}

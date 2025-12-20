@@ -5,6 +5,7 @@
 import express, { Application, NextFunction, Request, Response } from "express";
 import { UserRoutes } from "./app/modules/user/user.route";
 import cors from "cors";
+import logger from "./app/utils/logger";
 const app: Application = express();
 
 //parsers
@@ -30,7 +31,7 @@ app.use("/user", UserRoutes);
 
 //error handling
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
-  console.log(err);
+  logger.error(err);
   res.status(500).json({
     message: err.message,
   });
