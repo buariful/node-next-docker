@@ -1,0 +1,17 @@
+=========== create the network ===========
+docker network create ts-docker-net
+
+=========== create the mongodb container ===========
+docker run --name mongodb --rm -v ts-docker-db:/data/db --network ts-docker-net -e MONGO_INITDB_ROOT_USERNAME=ts-docker-db-username -e MONGO_INITDB_ROOT_PASSWORD=ts-docker-db-password mongo
+
+
+=========== create the backend container ===========
+docker build -t ts-docker-backend:v1 .
+
+docker run --name ts-docker-backend-container --rm --network ts-docker-net --env-file .env -w //app -v ts-docker-logs://app/logs -v "//$(pwd)"://app -v //app/node_modules -p 5000:5000 ts-docker-backend:v1
+
+
+=========== create the frontend container ===========
+docker build -t ts-docker-frontend:v1 .
+
+docker run --name ts-docker-frontend-conatiner --rm -p 3000:3000 --env-file .env -w //app -v "//$(pwd)"://app -v //app/node_modules --network ts-docker-net -e WATCHPACK_POLLING=true ts-docker-frontend:v1
