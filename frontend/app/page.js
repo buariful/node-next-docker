@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-const baseApiUrl = "http://localhost:5000";
+const baseApiUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 export default function Home() {
   const [users, setUsers] = useState([]);
