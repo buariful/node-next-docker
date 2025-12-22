@@ -1,0 +1,41 @@
+services:
+  mongodb:
+    image: "mongo"
+    volumes:
+      - "ts-docker-db:/data/db"
+    env_file:
+      - ./backend/.env
+      # - "MONGO_INITDB_ROOT_USERNAME=ts-docker-db-username"
+      # - "MONGO_INITDB_ROOT_PASSWORD=ts-docker-db-password"
+  ts-docker-backend-container:
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    volumes:
+      - ts-docker-logs:/app/logs # named volume
+      - "./backend:/app" # bind mount
+      - "/app/node_modules" # anonymous volume
+    env_file:
+      - ./backend/.env
+    depends_on:
+    - mongodb
+  ts-docker-frontend-container:
+    build: 
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - "./frontend:/app" # bind mount
+    env_file:
+      - ./frontend/.env
+    depends_on:
+    - ts-docker-backend-container
+    
+volumes:
+  ts-docker-db:
+  ts-docker-logs:
+  
+
